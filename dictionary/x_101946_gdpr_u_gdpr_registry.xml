@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="GDPR Registry" max_length="40" name="x_101946_gdpr_u_gdpr_registry" type="collection">
+        <element label="Description" max_length="1000" name="description" type="string"/>
+        <element label="Name" max_length="100" name="name" type="string"/>
+        <element choice="1" label="Type" max_length="40" name="type" type="choice">
+            <choice>
+                <element label="Person" sequence="0" value="Person"/>
+                <element label="Action" sequence="1" value="Action"/>
+                <element label="Business Application" sequence="2" value="Business Application"/>
+                <element label="Operational" sequence="3" value="Operational"/>
+            </choice>
+        </element>
+    </element>
+</database>

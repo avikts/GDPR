@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>sc</category>
+        <css>.carousel-row .col-md-12 {&#13;
+  padding-left: 0;&#13;
+  padding-right: 0;&#13;
+}&#13;
+&#13;
+.pull-in {&#13;
+  margin-left: 0;&#13;
+  margin-right: 0;&#13;
+}&#13;
+&#13;
+.ts-float-right {&#13;
+  float: right;&#13;
+}</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>gdpr_home</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles>snc_external,snc_internal</roles>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-04 13:45:43</sys_created_on>
+        <sys_id>e6c89e870f201300574f3b8ce1050e53</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>gdpr_home</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sp_page_e6c89e870f201300574f3b8ce1050e53</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-04 13:46:42</sys_updated_on>
+        <title>GDPR Home</title>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=e6c89e870f201300574f3b8ce1050e53"/>
+</record_update>

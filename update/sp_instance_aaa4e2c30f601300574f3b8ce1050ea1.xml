@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">22a4e2c30f601300574f3b8ce1050ea0</sp_column>
+        <sp_widget display_value="Catalog Homepage Search">e709a97287580300e0ef0cf888cb0bdd</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-04 14:37:35</sys_created_on>
+        <sys_id>aaa4e2c30f601300574f3b8ce1050ea1</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>GDPR Catalog</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sp_instance_aaa4e2c30f601300574f3b8ce1050ea1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-24 16:20:50</sys_updated_on>
+        <title>GDPR Catalog</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"typeahead_search": {
+		"value": "{title:'Search...', size: 'lg', color: 'default', contextual_search_sources: 'c96eb1686721220023c82e08f585efff'}",
+		"displayValue": "{title:'Search...', size: 'lg', color: 'default', contextual_search_sources: 'c96eb1686721220023c82e08f585efff'}"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=aaa4e2c30f601300574f3b8ce1050ea1"/>
+</record_update>

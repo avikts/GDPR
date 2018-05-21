@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, spUtil) {
+  var c = this;
+	
+	this.KEYS = {
+						DOWN:40,
+						LEFT:37,
+						RIGHT:39,
+						TAB:9,
+						UP:38
+					 };
+
+	$scope.show_request = true;
+
+	$scope.changePanel = function(panel_name) {
+		if ($scope.show_request) {
+			if (panel_name == 'approval' || panel_name == 'sec_incident')
+				$scope.show_request = false;
+		} else {
+			if (panel_name == 'request')
+				$scope.show_request = true;
+		}
+	};
+
+	spUtil.recordWatch($scope, "sysapproval_approver", "state=requested^approverIN" +  $scope.data.approvals.myApprovals.toString());
+	
+	function get() {
+		spUtil.update($scope);
+	}
+
+	$scope.approve = function(id) {
+		$scope.data.op = "approved";
+		$scope.data.target = id;
+		get();
+	};
+
+	$scope.reject = function(id) {
+		$scope.data.op = "rejected";
+		$scope.data.target = id;
+		get();
+	};
+	
+	$scope.switchTab = function($event, tab) {
+		var key = null;
+		if (event.keyCode === c.KEYS.LEFT || event.keyCode === c.KEYS.UP)
+			key = c.KEYS.LEFT;
+		else if (event.keyCode === c.KEYS.RIGHT || event.keyCode === c.KEYS.DOWN)
+			key = c.KEYS.RIGHT;
+		else if (event.keyCode === c.KEYS.TAB) {
+			return;
+		}
+		if (key === null)
+			return;
+	
+		if (!c.data.approvals.hasAny)
+			return;
+		$scope.show_request = !$scope.show_request;
+		if ($scope.show_request)
+			$('a.request').focus();
+		else
+			$('a.approval').focus();
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.sp-approval &gt; .approval-rows {
+  padding: 10px;
+}
+
+.panels-container {
+ 	height : 250px;
+  overflow-y : auto;
+}
+
+.panel {
+  padding-bottom:0;
+}
+
+.pad-bottom {
+  padding-bottom : 0px;
+}
+
+.sc-tab-a {
+ 	 color: $primary;
+	 border: 0;
+   border-bottom: 3px solid $primary;
+   background-color: transparent;
+}
+
+.nav &gt; li.item {
+  text-align: center;
+}
+
+.list-group-item {
+  border-bottom-width: 0 !important;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>GDPR Incidents and Requests</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  if (input) {
+		if (input.op == 'approved' || input.op == 'rejected') {
+			var app = new GlideRecord("sysapproval_approver");
+			if (app.get(input.target)) {
+				app.state = input.op;
+				app.update();
+			}
+		}
+	}
+
+	function getMyRequestSysIds() {
+		var ids = [];
+		var rq_filter = new GlideRecord('request_filter');
+		rq_filter.addActiveQuery();
+		rq_filter.query();
+		while(rq_filter.next()) {
+			var gr = new GlideRecord(rq_filter.table_name);
+			gr.addQuery(rq_filter.filter);
+			gr.query();
+			while(gr.next())
+				ids.push(gr.sys_id + '');
+		}
+		return ids;
+	}
+
+	function getMyApprovalsIds() {
+		var u = gs.getUserID();
+		var answer = [];
+		var i = 0;
+		answer[i++] = u + '';
+		var g = new GlideRecord("sys_user_delegate");
+		g.addQuery("delegate", u);
+		g.addQuery("approvals", "true");
+		g.addQuery("starts", "<=", gs.daysAgo(0));
+		g.addQuery("ends", ">=", gs.daysAgo(0));
+		g.query();
+		while( g.next())
+			answer[i++] = g.user + '';
+		return answer;
+	}
+
+	// retrieve the request's
+	var gr = new GlideRecordSecure('sc_request');
+	gr.addEncodedQuery('active=true^requested_for=javascript:gs.getUserID()');
+	gr.orderByDesc('sys_created_on');
+	gr.chooseWindow(0,11);
+	gr.query();
+
+	data.request = {};
+
+	data.request.req_list = [];
+	var recordIdx = 0;
+
+	while (gr.next()) {
+		if (recordIdx == 10)
+			break;
+
+		var record = {};
+		record.sys_id = gr.getValue('sys_id');
+
+		if (gr.getRecordClassName() == 'sc_request') {
+				var ritm = new GlideRecord("sc_req_item");
+				ritm.addQuery("request", gr.getUniqueValue());
+				ritm.query();
+				if (ritm.getRowCount() == 0)
+					continue;
+				if (ritm.getRowCount() > 1)
+					record.display_field = gs.getMessage("{0} requested items", ritm.getRowCount());
+				else {
+					ritm.next();
+					record.display_field = ritm.cat_item.getDisplayValue() || ritm.getDisplayValue("short_description");
+				}
+				record.url = { id: 'sc_request', table: 'sc_request', sys_id: record.sys_id};
+				record.number = gr.getValue('number');
+				record.updated_on = gr.getValue('sys_updated_on');
+				data.request.req_list.push(record);
+				recordIdx++;
+		}
+	}
+
+	if (recordIdx == 10 && gr.isValidRecord())
+		data.request.maximum_entries = true;
+	data.request.hasAny = data.request.req_list.length > 0 ? true : false;
+	
+	// retrieve the Security Incidents
+	var secIncident = new GlideRecordSecure('sn_si_incident');
+	secIncident.addActiveQuery();
+	secIncident.addEncodedQuery('active=true^caller=javascript:gs.getUserID()^ORopened_by=javascript:gs.getUserID()^security_tagsLIKE335d3a400fa01300574f3b8ce1050e5e');
+	secIncident.orderByDesc('sys_created_on');
+	secIncident.chooseWindow(0,11);
+	secIncident.query();
+
+	data.sec_incident = {};
+
+	data.sec_incident.req_list = [];
+	var recordIdxSecIncident = 0;
+
+	while (secIncident.next()) {
+		if (recordIdxSecIncident == 10)
+			break;
+
+		var recordSecIncident = {};
+		recordSecIncident.sys_id = secIncident.getValue('sys_id');
+
+		recordSecIncident.display_field = secIncident.getDisplayValue('short_description');
+		recordSecIncident.url = { id: 'ticket', table: secIncident.getRecordClassName(), sys_id: recordSecIncident.sys_id};
+
+		recordSecIncident.number = secIncident.getValue('number');
+		recordSecIncident.updated_on = secIncident.getValue('sys_updated_on');
+		data.sec_incident.req_list.push(recordSecIncident);
+		recordIdxSecIncident++;
+	}
+
+	if (recordIdxSecIncident == 10 && secIncident.isValidRecord())
+		data.sec_incident.maximum_entries = true;
+	data.sec_incident.hasAny = data.sec_incident.req_list.length > 0 ? true : false;
+	
+	
+	// fetch approvals for the user.
+	data.approvals = {};
+
+	// Retreive approvals related to the User.
+	gr = new GlideRecord('sysapproval_approver');
+	gr.chooseWindow(0, 10);
+	var qc1 = gr.addQuery("state", "requested");
+	data.approvals.myApprovals = getMyApprovalsIds();
+	gr.addQuery("approver", data.approvals.myApprovals);
+	gr.orderBy("sys_created_on");
+	gr.query();
+
+	var approvalsCount = gr.getRowCount();
+	var approvals = [];
+	var ids = [];
+
+	while (gr.next()) {
+		var task = getRecordBeingApproved(gr);
+		if (!task.isValidRecord())
+			continue;
+
+		ids.push(gr.getUniqueValue());
+		var t = {};
+		t.number = task.getDisplayValue();
+		t.short_description = task.short_description.toString();
+	  if (gr.getValue("approver") != gs.getUserID())
+	   t.approver = gr.approver.getDisplayValue();
+    if (task.isValidField("opened_by") && !task.opened_by.nil())
+	   t.opened_by = task.opened_by.getDisplayValue();
+	  // requestor >> opener
+    if (task.isValidField("requested_by") && !task.requested_by.nil())
+	   t.opened_by = task.requested_by.getDisplayValue();
+
+	  t.start_date = task.getDisplayValue('start_date');
+    t.end_date = task.getDisplayValue('end_date');
+    t.table = task.getLabel();
+		if (task.getValue("price") > 0)
+			t.price = task.getDisplayValue("price");
+
+		if (task.getValue("recurring_price") > 0)
+			t.recurring_price = task.getDisplayValue("recurring_price");
+
+		t.recurring_frequency = task.getDisplayValue("recurring_frequency");
+
+		var items = [];
+		var idx = 0;
+		var itemsGR = new GlideRecord("sc_req_item");
+    itemsGR.addQuery("request", task.sys_id);
+    itemsGR.query();
+    if (itemsGR.getRowCount() > 1)
+      t.short_description = itemsGR.getRowCount() + " requested items";
+
+    while (itemsGR.next()) {
+     var item = {};
+     item.short_description = itemsGR.short_description.toString();
+     if (itemsGR.getValue("price") > 0)
+       item.price = itemsGR.getDisplayValue("price");
+     if (itemsGR.getValue("recurring_price") > 0) {
+      item.recurring_price = itemsGR.getDisplayValue("recurring_price");
+      item.recurring_frequency = itemsGR.getDisplayValue("recurring_frequency");
+     }
+     if (itemsGR.getRowCount() == 1) {
+      item.variables = $sp.getRecordVariablesArray(itemsGR);
+      t.short_description = itemsGR.short_description.toString();
+     }
+
+    items[idx] = item;
+    idx++;
+		}
+
+		var j = {};
+		j.sys_id = gr.getUniqueValue();
+		j.table = gr.getRecordClassName();
+		j.task = t;
+		if (task)
+			j.variables = $sp.getRecordVariablesArray(task);
+
+		j.items = items;
+		j.state = gr.getValue("state");
+		j.stateLabel = gr.state.getDisplayValue();
+		approvals.push(j);
+	}
+
+	data.approvals.ids = ids;
+	data.approvals.approval_list = approvals;
+	if (approvals.length > 10)
+		data.approvals.show_viewAll = true;
+
+	data.approvals.hasAny = approvals.length > 0 ? true : false;
+
+	function getRecordBeingApproved(gr) {
+		if (!gr.sysapproval.nil())
+			return gr.sysapproval.getRefRecord();
+		return gr.document_id.getRefRecord();
+	}
+
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-24 13:16:46</sys_created_on>
+        <sys_id>61f1d12d0f811300574f3b8ce1050efa</sys_id>
+        <sys_mod_count>19</sys_mod_count>
+        <sys_name>GDPR Incidents and Requests</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sp_widget_61f1d12d0f811300574f3b8ce1050efa</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-15 15:41:29</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+ 	<div class="panel-heading pad-bottom">
+    	<ul class="nav nav-tabs" style="border-bottom : 0px" role="tablist">
+      	<li class="item" role="tab" tabindex="-1" ng-click="changePanel('request')" ng-keydown="switchTab($event, 'request')">
+        	<a ng-class="{'sc-tab-a' : show_request}" href="javascript:void(0)" class="request">
+          	<span> ${My Requests} </span>
+          </a>
+        </li>
+        <li class="item" role="tab" tabindex="-1" ng-click="changePanel('sec_incident')" ng-keydown="switchTab($event, 'sec_incident')">
+        	<a ng-class="{'sc-tab-a' : !show_request}" href="javascript:void(0)" class="request">
+          	<span> ${My Incidents and Breaches} </span>
+          </a>
+        </li>
+    	</ul>
+  </div>
+  
+    <!-- Requests Panel -->
+  <div ng-if="show_request && c.data.request.hasAny == false " class="panel-body panels-container">
+ 		${ You do not have any Requests } 
+  </div>
+ 	
+  <div ng-if = "show_request && c.data.request.hasAny == true" class="panels-container list-group">
+    	<div class="list-group-item row" ng-repeat="item in c.data.request.req_list" style="margin:0px" >
+      		<div class="col-xs-8" style="">
+            <div>
+             <a href="?id={{::item.url.id}}&table={{::item.url.table}}&sys_id={{::item.url.sys_id}}"> {{::item.display_field}} </a>
+            </div>
+            <small class="text-muted">
+            	<span> {{::item.number}}</span>
+            </small>
+          </div>
+         	<div class="col-xs-4">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <sn-time-ago timestamp="::item.updated_on"/>
+          </div>   
+      </div>
+    	<div class="col-sm-12" ng-show="c.data.request.maximum_entries" style="padding:15px">
+          <a href="?id=requests"> <center> ${View All Requests} </center> </a>  
+      </div>
+  </div>
+  
+    <!-- Security Incident Panel -->
+  <div ng-if="!show_request && c.data.sec_incident.hasAny == false " class="panel-body panels-container">
+ 		${ You do not have any Security Incidents } 
+  </div>
+ 	
+  <div ng-if = "!show_request && c.data.sec_incident.hasAny == true" class="panels-container list-group">
+    	<div class="list-group-item row" ng-repeat="item in c.data.sec_incident.req_list" style="margin:0px" >
+      		<div class="col-xs-8" style="">
+            <div>
+             <a href="?id={{::item.url.id}}&table={{::item.url.table}}&sys_id={{::item.url.sys_id}}"> {{::item.display_field}} </a>
+            </div>
+            <small class="text-muted">
+            	<span> {{::item.number}}</span>
+            </small>
+          </div>
+         	<div class="col-xs-4">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <sn-time-ago timestamp="::item.updated_on"/>
+          </div>   
+      </div>
+    	<div class="col-sm-12" ng-show="c.data.sec_incident.maximum_entries" style="padding:15px">
+          <a href="?id=sec_incidents"> <center> ${View All GDPR Security Incidents} </center> </a>  
+      </div>
+  </div>
+  <!--
+ 
+  <div class="panels-container" ng-if = "!show_request">
+        <div ng-repeat="approval in data.approvals.approval_list" class="sp-approval">
+          <div class="row approval-rows" style="margin:0px">
+          <div class="col-sm-9">
+            <div ng-if="approval.task.number || approval.task.short_description">
+              <a ng-href="?id=approval&table=sysapproval_approver&sys_id={{::approval.sys_id}}" title="{{data.ViewApprovalPageMsg}}">
+                <span ng-if="approval.task.number">{{::approval.task.number}}</span>
+                <span ng-if="approval.task.number && approval.task.short_description"> - </span>
+                <span ng-if="approval.task.short_description">{{::approval.task.short_description}}</span>
+              </a>
+            </div>
+            <div ng-if="approval.task.opened_by"><label>${Requestor}</label> {{::approval.task.opened_by}}</div>
+            <div ng-if="approval.task.approver"><label>${Approver}</label> {{::approval.task.approver}}</div>
+            <div ng-if="approval.task.start_date"><label>${Start}</label> {{::approval.task.start_date}}</div>
+            <div ng-if="approval.task.end_date"><label>${End}</label> {{::approval.task.end_date}}</div>
+            <div ng-if="approval.task.price"><label>${Price}</label> {{::approval.task.price}}
+              <span ng-if="approval.task.recurring_price"><label>${Recurring price}</label> {{::approval.task.recurring_price}} {{::approval.task.recurring_frequency}}</span>
+            </div>
+            <div ng-if="approval.items.length == 1">
+              <div ng-repeat="item in approval.items">
+                <div ng-if="item.variables.length > 0" ng-init="variable_toggle=false">
+                  <a href="javascript:void(0)" ng-click="variable_toggle = !variable_toggle">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}">
+                    </span>
+                    ${Options}
+                  </a>
+                  <div ng-repeat="variable in item.variables" ng-if="variable_toggle">
+                    <label class="text-muted">{{::variable.label}}</label>
+                    <div>{{::variable.display_value}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-if="approval.variables.length > 0" ng-init="variable_toggle=false">
+              <a href="javascript:void(0)" ng-click="variable_toggle = !variable_toggle">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}">
+                </span>
+                ${Options}
+              </a>
+              <div ng-repeat="variable in approval.variables" ng-if="variable_toggle">
+                <label>{{::variable.label}}</label>
+                <div>{{::variable.display_value}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <button name="approve" ng-if="approval.state == 'requested'" class="btn btn-primary btn-block" style="border-width:1px;" ng-click="approve(approval.sys_id);">${Approve}</button>
+            <button name="reject" ng-if="approval.state == 'requested'" class="btn btn-default btn-block" ng-click="reject(approval.sys_id);">${Reject}</button>
+          </div>
+        </div>
+       </div>
+  			<div class="col-sm-12" ng-show="c.data.approvals.show_viewAll" style="padding:15px">
+          <a href="?id=approvals"> <center> ${View All Approvals} </center> </a>  
+        </div>
+  </div>
+ --> 
+</div>]]></template>
+    </sp_widget>
+</record_update>

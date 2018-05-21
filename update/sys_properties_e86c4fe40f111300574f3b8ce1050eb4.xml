@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description/>
+        <ignore_cache>false</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_101946_gdpr.GDPR Catalog Sys ID</name>
+        <read_roles/>
+        <suffix>GDPR Catalog Sys ID</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-03 05:54:17</sys_created_on>
+        <sys_id>e86c4fe40f111300574f3b8ce1050eb4</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>x_101946_gdpr.GDPR Catalog Sys ID</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sys_properties_e86c4fe40f111300574f3b8ce1050eb4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-03 05:58:35</sys_updated_on>
+        <type>string</type>
+        <value>9baa97540f201300574f3b8ce1050e8f</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=e86c4fe40f111300574f3b8ce1050eb4"/>
+</record_update>

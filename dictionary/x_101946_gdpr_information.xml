@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb_ci" label="Information" max_length="40" name="x_101946_gdpr_information" sizeclass="5" type="collection">
+        <element label="PII" max_length="40" name="pii" type="boolean"/>
+    </element>
+</database>

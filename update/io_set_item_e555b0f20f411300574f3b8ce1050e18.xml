@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="io_set_item">
+    <io_set_item action="INSERT_OR_UPDATE">
+        <order>100</order>
+        <sc_cat_item display_value="Request data correction">afc474b20f411300574f3b8ce1050e4f</sc_cat_item>
+        <sys_class_name>io_set_item</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-28 08:24:07</sys_created_on>
+        <sys_id>e555b0f20f411300574f3b8ce1050e18</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>gdpr_request_data.Request data correction</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>io_set_item_e555b0f20f411300574f3b8ce1050e18</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-28 08:24:07</sys_updated_on>
+        <variable_set display_value="gdpr_request_data_correction">8c2be43e0f011300574f3b8ce1050e94</variable_set>
+    </io_set_item>
+</record_update>

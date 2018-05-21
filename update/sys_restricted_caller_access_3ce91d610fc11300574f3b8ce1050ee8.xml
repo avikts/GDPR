@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_restricted_caller_access">
+    <sys_restricted_caller_access action="INSERT_OR_UPDATE">
+        <operation>read</operation>
+        <source>61f1d12d0f811300574f3b8ce1050efa</source>
+        <source_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</source_scope>
+        <source_table>sp_widget</source_table>
+        <source_type>6</source_type>
+        <status>2</status>
+        <sys_class_name>sys_restricted_caller_access</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-24 13:51:24</sys_created_on>
+        <sys_id>3ce91d610fc11300574f3b8ce1050ee8</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name>82878663ff123100158bffffffffff67</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sys_restricted_caller_access_3ce91d610fc11300574f3b8ce1050ee8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-15 15:41:32</sys_updated_on>
+        <target name="sn_si_incident" target_table="sys_db_object">640fe2840f201300574f3b8ce1050e9d</target>
+        <target_scope display_value="Security Incident">82878663ff123100158bffffffffff67</target_scope>
+        <target_table>sys_db_object</target_table>
+        <target_type>1</target_type>
+    </sys_restricted_caller_access>
+</record_update>

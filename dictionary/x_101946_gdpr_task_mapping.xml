@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Task Mapping" max_length="40" name="x_101946_gdpr_task_mapping" type="collection">
+        <element choice="1" choice_field="category" choice_table="sn_si_incident" label="Category" max_length="40" name="category" type="choice">
+            <choice/>
+        </element>
+        <element label="DPO Email" max_length="40" name="dpo_email" type="string"/>
+        <element label="DPO Group" max_length="32" name="dpo_group" reference="sys_user_group" type="reference"/>
+        <element choice="1" choice_field="subcategory" choice_table="sn_si_incident" dependent="category" dependent_on_field="category" label="Subcategory" max_length="40" name="subcategory" type="choice" use_dependent_field="true">
+            <choice/>
+        </element>
+        <element label="Task Assignment Group" max_length="32" name="task_assignment_group" reference="sys_user_group" type="reference"/>
+        <element label="Task Short Description" max_length="40" name="task_short_description" type="string"/>
+        <element label="Task Template" max_length="32" name="task_template" reference="sys_template" type="reference"/>
+        <index name="index">
+            <element name="dpo_group"/>
+        </index>
+        <index name="index2">
+            <element name="task_template"/>
+        </index>
+        <index name="index3">
+            <element name="task_assignment_group"/>
+        </index>
+    </element>
+</database>

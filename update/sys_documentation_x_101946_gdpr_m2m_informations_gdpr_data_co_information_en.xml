@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="information" label="Information CI" language="en" table="x_101946_gdpr_m2m_informations_gdpr_data_co">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>information</element>
+            <help/>
+            <hint/>
+            <label>Information CI</label>
+            <language>en</language>
+            <name>x_101946_gdpr_m2m_informations_gdpr_data_co</name>
+            <plural>Information CIs</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-04-15 14:47:22</sys_created_on>
+            <sys_id>53a9366c0f211300574f3b8ce1050e11</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>Information CI</sys_name>
+            <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+            <sys_update_name>sys_documentation_x_101946_gdpr_m2m_informations_gdpr_data_co_information_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-04-15 14:54:11</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

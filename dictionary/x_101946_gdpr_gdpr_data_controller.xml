@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="GDPR Data Controller" max_length="40" name="x_101946_gdpr_gdpr_data_controller" type="collection">
+        <element label="Description" max_length="1000" name="description" type="string"/>
+        <element label="Email" max_length="100" name="email" type="string"/>
+        <element label="Name" max_length="100" name="name" type="string"/>
+    </element>
+</database>

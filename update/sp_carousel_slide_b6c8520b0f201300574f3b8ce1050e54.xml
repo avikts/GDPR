@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_carousel_slide">
+    <sp_carousel_slide action="INSERT_OR_UPDATE">
+        <background/>
+        <carousel display_value="SC Home Carousel">76c8520b0f201300574f3b8ce1050e4c</carousel>
+        <name>sp3</name>
+        <order>150</order>
+        <sys_class_name>sp_carousel_slide</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-04 13:45:43</sys_created_on>
+        <sys_id>b6c8520b0f201300574f3b8ce1050e54</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sp3</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sp_carousel_slide_b6c8520b0f201300574f3b8ce1050e54</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-04 13:45:43</sys_updated_on>
+        <url>?id=sc_cat_item&amp;sys_id=d130ad75d7620200a9ad1e173e24d43c</url>
+    </sp_carousel_slide>
+</record_update>

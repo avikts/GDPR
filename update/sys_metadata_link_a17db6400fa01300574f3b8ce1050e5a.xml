@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>335d3a400fa01300574f3b8ce1050e5e</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sn_sec_cmn_security_tag">
+    <sn_sec_cmn_security_tag action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <color>dimgray</color>
+        <description/>
+        <is_restricted>false</is_restricted>
+        <is_shareable>true</is_shareable>
+        <name>GDPR</name>
+        <order>100</order>
+        <role_access_read/>
+        <role_access_write/>
+        <security_tag_group display_value="GDPR">0c9dba400fa01300574f3b8ce1050e8a</security_tag_group>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-23 08:43:53</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>335d3a400fa01300574f3b8ce1050e5e</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-23 08:45:18</sys_updated_on>
+    </sn_sec_cmn_security_tag>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-23 08:44:10</sys_created_on>
+        <sys_id>a17db6400fa01300574f3b8ce1050e5a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDPR</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sys_metadata_link_a17db6400fa01300574f3b8ce1050e5a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-23 08:45:43</sys_updated_on>
+        <tablename>sn_sec_cmn_security_tag</tablename>
+    </sys_metadata_link>
+</record_update>

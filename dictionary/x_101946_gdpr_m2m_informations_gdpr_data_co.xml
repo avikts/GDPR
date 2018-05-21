@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Processing Activites" max_length="40" name="x_101946_gdpr_m2m_informations_gdpr_data_co" type="collection">
+        <element label="Information CI" max_length="32" name="information" reference="x_101946_gdpr_information" type="reference"/>
+        <element label="Limit of erasure (in Days)" max_length="40" name="limit_of_erasure" type="integer"/>
+        <element label="GDPR Data Controller" max_length="32" name="name" reference="x_101946_gdpr_gdpr_data_controller" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Purpose" max_length="1000" name="purpose" type="string"/>
+        <index name="index">
+            <element name="name"/>
+        </index>
+        <index name="index2">
+            <element name="information"/>
+        </index>
+    </element>
+</database>

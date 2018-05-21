@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_m2m">
+    <sys_m2m action="INSERT_OR_UPDATE">
+        <from_table>x_101946_gdpr_gdpr_data_controller</from_table>
+        <m2m_from_field>name</m2m_from_field>
+        <m2m_from_label>Information CI</m2m_from_label>
+        <m2m_table>x_101946_gdpr_m2m_informations_gdpr_data_co</m2m_table>
+        <m2m_to_field>information</m2m_to_field>
+        <m2m_to_label>GDPR Data Controllers</m2m_to_label>
+        <sys_class_name>sys_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-15 14:47:22</sys_created_on>
+        <sys_id>39093e2c0f211300574f3b8ce1050e0d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_101946_gdpr_m2m_informations_gdpr_data_co</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sys_m2m_39093e2c0f211300574f3b8ce1050e0d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-15 14:47:22</sys_updated_on>
+        <to_table>x_101946_gdpr_information</to_table>
+    </sys_m2m>
+</record_update>

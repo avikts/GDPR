@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_101946_gdpr.GDPRUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>GDPRUtils</name>
+        <script><![CDATA[var GDPRUtils = Class.create();
+GDPRUtils.prototype = {
+	initialize: function() {
+	},
+	
+	
+	getMyApprovals: function() {
+		var u = gs.getUserID();
+		var answer = [];
+		var i = 0;
+		answer[i++] = ''+u;
+		var g = new GlideRecord("sys_user_delegate");
+		g.addQuery("delegate", u);
+		g.addQuery("approvals", "true");
+		g.addQuery("starts", "<=", gs.daysAgo(0));
+		g.addQuery("ends", ">=", gs.daysAgo(0));
+		g.query();
+		while( g.next())
+			answer[i++] = ''+g.user;
+		
+		return answer;
+	},
+	
+	getCatTaskMapping : function(ritm) {
+		var ritmApproval = '';
+		var catTaskAssignment = '';
+		var gr = new GlideRecord('x_101946_gdpr_catalog_task_mapping');
+		gr.addQuery('catalog_item', ritm.cat_item);
+		gr.query();
+		if (gr.next()) {
+			ritmApproval = gr.ritm_approval_group;
+			catTaskAssignment = gr.catalog_task_assignment_group;	
+		}
+		return ritmApproval+':'+catTaskAssignment;
+		
+	},
+	
+	createNewSecIncident: function(current, producer) {
+		current.newRecord();
+		current.cmdb_ci = producer.gdpr_stolen_device_lost_device;
+		current.affected_user = producer.gdpr_stolen_device_affected_user;
+		current.location = producer.gdpr_stolen_device_location;
+		current.description = producer.gdpr_stolen_device_description;
+		current.short_description = 'This is incident has been raised to report a stolen device.';
+		current.category = 'Equipment loss';
+		current.subcategory = 45; //Stolen equipment;
+		current.business_criticality = 1; // 1 - Critical
+		current.priority = 1;  // 1 - Critical
+		current.security_tags = '335d3a400fa01300574f3b8ce1050e5e';
+		current.contact_type = 'phone';
+		current.caller = producer.gdpr_stolen_device_requested_by;
+		
+		var gr = new GlideRecord('sn_sec_cmn_applied_security_tag');
+		gr.initialize();
+		gr.security_tag = '335d3a400fa01300574f3b8ce1050e5e';
+		gr.record_id = current.sys_id;
+		gr.record_table = 'sn_si_incident';
+		gr.insert();		
+	},
+	
+	createTasks: function(deleteAll, selectInfo, record) {
+		if (deleteAll == 'true') {
+			var gr = new GlideRecord('cmdb_rel_ci');
+			gr.addQuery('child.sys_class_name','x_101946_gdpr_information');
+			gr.query();
+			while(gr.next()) {
+				this.createCatTask(gr.parent, record, ''+gr.child.name);
+			}
+		}
+		else {
+			if (selectInfo.toString().indexOf(',')>0) {
+				var infoArray = selectInfo.toString().split(',');
+				var infoLng = infoArray.length;
+				var k = 0;
+				for (k;k<infoLng;k++) {
+					var grRel = new GlideRecord('cmdb_rel_ci');
+					grRel.addQuery('child',infoArray[k]);
+					grRel.query();
+					while(grRel.next()) {
+						this.createCatTask(grRel.parent, record, ''+grRel.child.name);
+					}
+				}	
+			}
+			else {
+				var grRelCI = new GlideRecord('cmdb_rel_ci');
+				grRelCI.addQuery('child',selectInfo);
+				grRelCI.query();
+				while(grRelCI.next()) {
+					this.createCatTask(grRelCI.parent, record, ''+grRelCI.child.name);
+				}
+			}
+			
+		}		
+	},
+	
+	createCatTask: function(parent, record, infoCIName) {
+		var grTask = new GlideRecord('sc_task');
+		grTask.addQuery('request_item',record.sys_id);
+		grTask.addQuery('cmdb_ci',parent.sys_id);
+		grTask.query();
+		if (grTask.next()) {
+			grTask.description += ', '+infoCIName;
+			grTask.update();
+		}
+		else {
+			var gr = new GlideRecord('sc_task');
+			gr.initialize();
+			gr.request_item = record.sys_id;
+			gr.requested_for = record.request.requested_for;
+			gr.short_description = record.short_description;
+			gr.assignment_group = ''+parent.support_group;
+			gr.description = 'Please take necessary action for '+infoCIName;
+			gr.cmdb_ci = ''+parent.sys_id;
+			gr.insert();
+		}
+	},
+	
+	checkTaskStatus: function(record) {
+		var gr = new GlideRecord('sc_task');
+		gr.addActiveQuery('request_item',record.sys_id);
+		gr.query();
+		if (gr.next()) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
+	},
+	
+	type: 'GDPRUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-01 05:15:18</sys_created_on>
+        <sys_id>18d609820f2c1300574f3b8ce1050e5c</sys_id>
+        <sys_mod_count>27</sys_mod_count>
+        <sys_name>GDPRUtils</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_include_18d609820f2c1300574f3b8ce1050e5c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-14 07:50:40</sys_updated_on>
+    </sys_script_include>
+</record_update>

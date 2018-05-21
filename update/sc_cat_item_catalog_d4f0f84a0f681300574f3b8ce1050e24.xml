@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sc_cat_item_catalog">
+    <sc_cat_item_catalog action="INSERT_OR_UPDATE">
+        <sc_cat_item display_value="Provide Consent">5530f00a0f681300574f3b8ce1050e25</sc_cat_item>
+        <sc_catalog display_value="GDPR">9baa97540f201300574f3b8ce1050e8f</sc_catalog>
+        <sys_class_name>sc_cat_item_catalog</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-01 03:38:04</sys_created_on>
+        <sys_id>d4f0f84a0f681300574f3b8ce1050e24</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GDPR.Provide Consent</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sc_cat_item_catalog_d4f0f84a0f681300574f3b8ce1050e24</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-01 03:38:04</sys_updated_on>
+    </sc_cat_item_catalog>
+</record_update>

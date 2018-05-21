@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="io_set_item">
+    <io_set_item action="INSERT_OR_UPDATE">
+        <order>100</order>
+        <sc_cat_item display_value="Stolen Device Un-Encrypted">0bf901ee0fc11300574f3b8ce1050e22</sc_cat_item>
+        <sys_class_name>io_set_item</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-28 06:55:22</sys_created_on>
+        <sys_id>2901a0b60f011300574f3b8ce1050e01</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>gdpr_stolen_device.Stolen Device Un-Encrypted</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>io_set_item_2901a0b60f011300574f3b8ce1050e01</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-28 06:55:22</sys_updated_on>
+        <variable_set display_value="gdpr_stolen_device">6ab9228b0f601300574f3b8ce1050ebf</variable_set>
+    </io_set_item>
+</record_update>

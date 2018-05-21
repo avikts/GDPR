@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="catalog_task_assignment_group" label="Catalog Task Assignment Group" language="en" table="x_101946_gdpr_catalog_task_mapping">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>catalog_task_assignment_group</element>
+            <help/>
+            <hint/>
+            <label>Catalog Task Assignment Group</label>
+            <language>en</language>
+            <name>x_101946_gdpr_catalog_task_mapping</name>
+            <plural>Catalog Task Assignment Groups</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-03-01 14:22:49</sys_created_on>
+            <sys_id>b884030e0f205300574f3b8ce1050e4d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Catalog Task Assignment Group</sys_name>
+            <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+            <sys_update_name>sys_documentation_x_101946_gdpr_catalog_task_mapping_catalog_task_assignment_group_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-03-01 14:22:49</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

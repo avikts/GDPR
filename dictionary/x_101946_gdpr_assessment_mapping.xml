@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Assessment Mapping" max_length="40" name="x_101946_gdpr_assessment_mapping" type="collection">
+        <element label="Approval Group" max_length="32" name="approval_group" reference="sys_user_group" type="reference"/>
+        <element attributes="no_audit=true,staticDependent=sn_si_incident" label="Condition" max_length="4000" name="condition" type="conditions"/>
+        <element label="Location" max_length="32" name="location" reference="cmn_location" type="reference"/>
+        <index name="index">
+            <element name="location"/>
+        </index>
+        <index name="index2">
+            <element name="approval_group"/>
+        </index>
+    </element>
+</database>

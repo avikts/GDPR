@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Notification Log" max_length="40" name="x_101946_gdpr_notification_log" type="collection">
+        <element label="Receiver Email" max_length="40" name="receiver" type="string"/>
+        <element label="Receiver Group" max_length="32" name="receiver_group" reference="sys_user_group" type="reference"/>
+        <element label="Security Incident" max_length="32" name="security_incident" reference="sn_si_incident" type="reference"/>
+        <index name="index">
+            <element name="security_incident"/>
+        </index>
+        <index name="index2">
+            <element name="receiver_group"/>
+        </index>
+    </element>
+</database>

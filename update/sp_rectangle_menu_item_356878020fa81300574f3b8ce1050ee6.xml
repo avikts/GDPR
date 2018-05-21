@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_rectangle_menu_item">
+    <sp_rectangle_menu_item action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <color>default</color>
+        <condition>gs.isLoggedIn()</condition>
+        <display_1/>
+        <display_2/>
+        <display_date/>
+        <filter/>
+        <glyph/>
+        <hint>My Requests</hint>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <label>Requests</label>
+        <order>300</order>
+        <record_script><![CDATA[// maximum number of entries in this Menu
+var max = 30;
+
+var t = data;  // shortcut
+t.items = [];
+
+var u = gs.getUser().getID();
+
+// use record watchers to tell header when to update dropdown counts
+t.record_watchers = [];
+t.record_watchers.push({'table':'sc_request','filter':'active=true^requested_for=' + u});
+
+var z = new GlideRecord('sc_request');
+z.addActiveQuery();
+z.addQuery('requested_for', gs.getUserID());
+z.orderByDesc('sys_updated_on');
+z.setLimit(max);
+z.query();
+while (z.next()) {
+  if (!z.canRead())
+    continue;
+  
+  var ritm = new GlideRecord('sc_req_item');
+  ritm.addQuery('request', z.getUniqueValue());
+//  ritm.addQuery('cat_item.sc_catalogs', 'CONTAINS', gs.getProperty('x_101946_gdpr.GDPR Catalog Sys ID')); // If only GDPR requests are required.
+  ritm.query();
+  if (!ritm.next())
+    continue;
+
+  var a = {};
+  a.sys_id = ''+z.sys_id;
+  a.number = ''+z.number;
+  a.sys_updated_on = ''+z.sys_updated_on;
+//  $sp.getRecordValues(a, z, 'sys_id,number,sys_updated_on');
+  if (ritm.hasNext()) // there are multiple items for this request
+    a.short_description = ritm.getRowCount() + ' requested items';
+  else if (!ritm.canRead()) // only one item, but user cannot see it
+  	continue;
+  else // one item, and user can see it
+    a.short_description = ritm.cat_item.getDisplayValue() || ritm.getDisplayValue("short_description");
+  a.__table = z.getTableName();
+  a.type = 'request';
+  a.sortOrder = new GlideDateTime(z.sys_updated_on).getNumericValue();
+  t.items.push(a);
+}
+
+t.items.sort(function(a, b) {
+  return b.sortOrder - a.sortOrder;
+});
+t.items = t.items.slice(0, max); // only want first 30
+t.count = t.items.length;
+
+var link = {title: gs.getMessage('View all requests'), type: 'link', href: '?id=requests', items: []};
+t.items.unshift(link); // put 'View all requests' first]]></record_script>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description/>
+        <sp_page/>
+        <sp_rectangle_menu display_value="GDPR Header Menu">f1e7f4ce0f681300574f3b8ce1050ef5</sp_rectangle_menu>
+        <sp_rectangle_menu_item/>
+        <sys_class_name>sp_rectangle_menu_item</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-01 04:10:40</sys_created_on>
+        <sys_id>356878020fa81300574f3b8ce1050ee6</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>Requests</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sp_rectangle_menu_item_356878020fa81300574f3b8ce1050ee6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-03 06:00:51</sys_updated_on>
+        <table/>
+        <type>scripted</type>
+        <url/>
+        <url_target/>
+    </sp_rectangle_menu_item>
+    <sys_translated_text action="delete_multiple" query="documentkey=356878020fa81300574f3b8ce1050ee6"/>
+</record_update>

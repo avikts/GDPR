@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_rectangle_menu_item">
+    <sp_rectangle_menu_item action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <color>default</color>
+        <condition>gs.isLoggedIn()</condition>
+        <display_1/>
+        <display_2/>
+        <display_date/>
+        <filter/>
+        <glyph/>
+        <hint/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <label>GDPR Catalog</label>
+        <order>100</order>
+        <record_script/>
+        <sc_cat_item display_value="Forget Me">a9ffe44a0f681300574f3b8ce1050e24</sc_cat_item>
+        <sc_category/>
+        <short_description/>
+        <sp_page display_value="gdpr_landing">a6a4e2c30f601300574f3b8ce1050e99</sp_page>
+        <sp_rectangle_menu display_value="GDPR Header Menu">f1e7f4ce0f681300574f3b8ce1050ef5</sp_rectangle_menu>
+        <sp_rectangle_menu_item/>
+        <sys_class_name>sp_rectangle_menu_item</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-01 05:23:43</sys_created_on>
+        <sys_id>49d889c20f2c1300574f3b8ce1050e71</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>GDPR Catalog</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sp_rectangle_menu_item_49d889c20f2c1300574f3b8ce1050e71</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-03 05:46:16</sys_updated_on>
+        <table/>
+        <type>page</type>
+        <url/>
+        <url_target/>
+    </sp_rectangle_menu_item>
+    <sys_translated_text action="delete_multiple" query="documentkey=49d889c20f2c1300574f3b8ce1050e71"/>
+</record_update>

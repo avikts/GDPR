@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_user_role_contains">
+    <sys_user_role_contains action="INSERT_OR_UPDATE">
+        <contains display_value="catalog" name="catalog">e098ecf6c0a80165002aaec84d906014</contains>
+        <role display_value="x_101946_gdpr.GDPR admin" name="x_101946_gdpr.GDPR admin">8afff6c00fa01300574f3b8ce1050e61</role>
+        <sys_class_name>sys_user_role_contains</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-26 05:04:23</sys_created_on>
+        <sys_id>e474f9c60f011300574f3b8ce1050e57</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>catalog.x_101946_gdpr.GDPR admin</sys_name>
+        <sys_package display_value="GDPR" source="x_101946_gdpr">fe5cb2000fa01300574f3b8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="GDPR">fe5cb2000fa01300574f3b8ce1050ed1</sys_scope>
+        <sys_update_name>sys_user_role_contains_e474f9c60f011300574f3b8ce1050e57</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-26 05:04:23</sys_updated_on>
+    </sys_user_role_contains>
+</record_update>
